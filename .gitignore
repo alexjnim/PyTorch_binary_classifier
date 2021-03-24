@@ -1,0 +1,5 @@
+data/IMDB_Dataset.csv
+.DS_Store
+__pycache__/
+notebooks/
+.vscode/
