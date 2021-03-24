@@ -24,6 +24,8 @@ class ReviewClassifier(nn.Module):
             the resulting tensor. tensor.shape should be (batch,)
         """
         y_out = self.fc1(x_in).squeeze()
+
+        # there are numerical stability issues with applying a sigmoid for the torch.nn.BCELoss() function. To provide its users with shortcuts that are more numerically stable, PyTorch provides BCEWithLogitsLoss(). To use this loss function, the output should not have the sigmoid function applied. Therefore, by default, we do not apply the sigmoid. However, in the case that the user of the classifier would like a probability value, the sigmoid is required, and it is left as an option.
         if apply_sigmoid:
             y_out = torch.sigmoid(y_out)
         return y_out
