@@ -21,7 +21,9 @@ def set_seed_everywhere(seed, cuda):
         torch.cuda.manual_seed_all(seed)
 
 def compute_accuracy(y_pred, y_target):
+    # .cpu() is used to move the tensor to cpu(). Some operations on tensors cannot be performed on cuda tensors so you need to move them to cpu first.
     y_target = y_target.cpu()
+    # use .sigmoid activation function to get probablity
     y_pred_indices = (torch.sigmoid(y_pred)>0.5).cpu().long()#.max(dim=1)[1]
     n_correct = torch.eq(y_pred_indices, y_target).sum().item()
     return n_correct / len(y_pred_indices) * 100
