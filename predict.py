@@ -1,8 +1,8 @@
 import torch
 import re
-from resources.Model import ReviewClassifier
-from resources.Vectorizer import ReviewVectorizer
-from resources.Dataset import ReviewDataset
+from model.SingleLayerPerceptron import SingleLayerPerceptron
+from resources.Vectorizer import TextVectorizer
+from resources.Dataset import TextDataset
 from resources.NormalizeText import simple_normalize
 from config import config
 
@@ -35,10 +35,10 @@ if __name__ == "__main__":
         cuda = False
     device = torch.device("cuda" if cuda else "cpu")
 
-    dataset = ReviewDataset(config.data_path)
+    dataset = TextDataset(config.data_path)
     vectorizer = dataset.get_vectorizer()
 
-    model = ReviewClassifier(num_features=len(vectorizer.review_vocab))
+    model = SingleLayerPerceptron(num_features=len(vectorizer.review_vocab))
     model.load_state_dict(torch.load(config.save_dir+config.model_filename))
     model = model.to(device)
 

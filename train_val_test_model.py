@@ -124,6 +124,7 @@ def train_val_model(model, dataset, device,  optimizer, loss_func):
 
         train_state['val_loss'].append(running_loss)
         train_state['val_acc'].append(running_acc)
+
         save_model(train_state, model)
 
     #after finishing train and val loop, check against test data and save results

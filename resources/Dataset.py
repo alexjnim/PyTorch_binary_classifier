@@ -5,29 +5,29 @@ import re
 import string
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from resources.Vectorizer import ReviewVectorizer
+from resources.Vectorizer import TextVectorizer
 from resources.NormalizeText import normalize_corpus, simple_normalize
 from torch.utils.data import Dataset, DataLoader
 
 
-class ReviewDataset(Dataset):
+class TextDataset(Dataset):
     def __init__(self, data_path):
         """
         Args:
-            review_df (pandas.DataFrame): the dataset
+            text_df (pandas.DataFrame): the dataset
         """
-        self.review_df = pd.read_csv(data_path)
+        self.text_df = pd.read_csv(data_path)
 
         #simple normalizer
-        self.review_df.review = self.review_df.review.apply(simple_normalize)
+        self.text_df.review = self.text_df.review.apply(simple_normalize)
         # this normalizing function takes too long
-        # self.review_df.review = normalize_corpus(corpus=self.review_df.review, html_stripping=True,
+        # self.text_df.review = normalize_corpus(corpus=self.text_df.review, html_stripping=True,
         #                                  contraction_expansion=True, accented_char_removal=True,
         #                                  text_lower_case=True, text_lemmatization=True,
         #                                  text_stemming=False, special_char_removal=True,
         #                                  remove_digits=True, stopword_removal=True)
 
-        train_df, self.test_df = train_test_split(self.review_df, test_size=0.1, random_state=42, shuffle=True)
+        train_df, self.test_df = train_test_split(self.text_df, test_size=0.1, random_state=42, shuffle=True)
         self.train_df, self.val_df = train_test_split(train_df, test_size=0.2, random_state=42, shuffle=True)
 
         self.train_size = len(self.train_df)
@@ -40,7 +40,7 @@ class ReviewDataset(Dataset):
 
         self.set_split('train')
         #here we used the imported vectorizer
-        self._vectorizer = ReviewVectorizer.from_dataframe(self.train_df)
+        self._vectorizer = TextVectorizer.from_dataframe(self.train_df)
 
 
     def get_vectorizer(self):

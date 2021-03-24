@@ -7,9 +7,9 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 
-from resources.Vectorizer import ReviewVectorizer
-from resources.Dataset import ReviewDataset, generate_batches
-from resources.Model import ReviewClassifier
+from resources.Vectorizer import TextVectorizer
+from resources.Dataset import TextDataset, generate_batches
+from model.SingleLayerPerceptron import SingleLayerPerceptron
 
 from train_val_test_model import train_val_model
 from config import config
@@ -28,11 +28,11 @@ def run_training():
     set_seeds(config.seed, cuda)
 
     # dataset and vectorizer
-    dataset = ReviewDataset(config.data_path)
+    dataset = TextDataset(config.data_path)
     vectorizer = dataset.get_vectorizer()
 
     # model
-    classifier = ReviewClassifier(num_features=len(vectorizer.review_vocab))
+    classifier = SingleLayerPerceptron(num_features=len(vectorizer.text_vocab))
     classifier = classifier.to(device)
 
     # loss and optimizer

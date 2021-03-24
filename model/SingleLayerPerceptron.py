@@ -1,14 +1,14 @@
 import torch
 import torch.nn as nn
 
-class ReviewClassifier(nn.Module):
+class SingleLayerPerceptron(nn.Module):
     """ a simple perceptron based classifier """
     def __init__(self, num_features):
         """
         Args:
             num_features (int): the size of the input feature vector
         """
-        super(ReviewClassifier, self).__init__()
+        super(SingleLayerPerceptron, self).__init__()
         self.fc1 = nn.Linear(in_features=num_features,
                              out_features=1)
 
