@@ -4,6 +4,10 @@ from resources.Dataset import generate_batches
 from testing_function import test_model
 from config import config
 
+def describe(x):
+    print("Type: {}".format(x.type()))
+    print("Shape/size: {}".format(x.shape))
+
 def get_train_state():
     return  {'epoch_index': 0,
                 'train_loss': [],
@@ -76,7 +80,8 @@ def train_val_model(model, dataset, device,  optimizer, loss_func):
 
             # step 2. compute the output
             y_pred = model(x_in=batch_dict['x_data'].float())
-
+            describe(y_pred)
+            describe(batch_dict['y_target'].float())
             # step 3. compute the loss
             loss = loss_func(y_pred, batch_dict['y_target'].float())
             loss_batch = loss.item()

@@ -1,1 +1,1 @@
-{"epoch_index": 0, "train_loss": [0.5410663150250908], "train_acc": [81.75000000000003], "val_loss": [0.4488089710474013], "val_acc": [85.9], "test_loss": 0.44798974320292473, "test_acc": 85.62499999999999, "model_filename": "single_layer_perceptron", "stop_early": false}
+{"epoch_index": 0, "train_loss": [0.41747372771302865], "train_acc": [83.24999999999996], "val_loss": [0.2916364207863807], "val_acc": [89.05555555555557], "test_loss": 0.2956169061362743, "test_acc": 88.58333333333333, "model_filename": "multi_layer_perceptron", "stop_early": false}

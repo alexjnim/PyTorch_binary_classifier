@@ -4,6 +4,7 @@ import os
 import re
 import string
 import pandas as pd
+from config import config
 from sklearn.model_selection import train_test_split
 from resources.Vectorizer import TextVectorizer
 from resources.NormalizeText import normalize_corpus, simple_normalize
@@ -72,11 +73,11 @@ class TextDataset(Dataset):
         review_vector = \
             self._vectorizer.vectorize(row.review)
 
-        rating_index = \
-            self._vectorizer.rating_vocab.lookup_token(row.sentiment)
+        y_value_index = \
+            self._vectorizer.y_values_vocab.lookup_token(row[config.y_column])
 
         return {'x_data': review_vector,
-                'y_target': rating_index}
+                'y_target': y_value_index}
 
     def get_num_batches(self, batch_size):
         """Given a batch size, return the number of batches in the dataset

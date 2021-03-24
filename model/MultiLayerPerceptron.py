@@ -28,7 +28,7 @@ class MultiLayerPerceptron(nn.Module):
         #use dropout here
         output = self.fc2(F.dropout(intermediate, p=0.5)).squeeze()
 
-        #the softmax function is optionally applied to make sure the outputs sum to 1; that is, are interpreted as “probabilities.” The reason it is optional has to do with the mathematical formulation of the loss function we use—the cross-entropy loss, introduced in “Loss Functions”. Recall that cross-entropy loss is most desirable for multiclass classification, but computation of the softmax during training is not only wasteful but also not numerically stable in many situations.
+        #the softmax function is optionally applied to make sure the outputs sum to 1; that is, are interpreted as “probabilities.” The reason it is optional has to do with the mathematical formulation of the loss function we use—the cross-entropy loss, introduced in “Loss Functions”. Recall that cross-entropy loss is most desirable for multiclass classification, but computation of the softmax during training is not only wasteful but also not numerically stable in many  situations.
         if apply_softmax:
             output = F.softmax(output, dim=1)
         return output

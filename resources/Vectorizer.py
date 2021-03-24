@@ -10,14 +10,14 @@ from config import config
 
 class TextVectorizer(object):
     """ The Vectorizer which coordinates the Vocabularies and puts them to use"""
-    def __init__(self, text_vocab, rating_vocab):
+    def __init__(self, text_vocab, y_values_vocab):
         """
         Args:
             text_vocab (Vocabulary): maps words to integers
-            rating_vocab (Vocabulary): maps class labels to integers
+            y_values_vocab (Vocabulary): maps class labels to integers
         """
         self.text_vocab = text_vocab
-        self.rating_vocab = rating_vocab
+        self.y_values_vocab = y_values_vocab
 
     def vectorize(self, text):
         """Create a collapsed one-hit vector for the text
@@ -46,11 +46,11 @@ class TextVectorizer(object):
             an instance of the TextVectorizer
         """
         text_vocab = Vocabulary(add_unk=True)
-        rating_vocab = Vocabulary(add_unk=False)
+        y_values_vocab = Vocabulary(add_unk=False)
 
-        # Add ratings
-        for rating in sorted(set(train_df[config.y_column])):
-            rating_vocab.add_token(rating)
+        # Add y_values
+        for y_value in sorted(set(train_df[config.y_column])):
+            y_values_vocab.add_token(y_value)
 
         # Add top words if count > provided count
         word_counts = Counter()
@@ -63,4 +63,4 @@ class TextVectorizer(object):
             if count > cutoff:
                 text_vocab.add_token(word)
 
-        return cls(text_vocab, rating_vocab)
+        return cls(text_vocab, y_values_vocab)
