@@ -4,7 +4,7 @@ model = 'multi_layer_perceptron'
 
 if problem == 'IMDB_review_sentiment':
     frequency_cutoff=25
-    model_filename = 'multi_layer_perceptron'
+    model_filename = 'single_layer_perceptron'
     data_path='data/IMDB_Dataset.csv'
     save_dir='model/saved_models/'
 
